@@ -1,9 +1,11 @@
 <script lang="ts">
+  import Footer from "./lib/Footer.svelte";
 </script>
 
 <main>
   <h1>Nothing to see here yet!</h1>
   <p>Please come back when there is some content.</p>
+  <Footer />
 </main>
 
 <style>
