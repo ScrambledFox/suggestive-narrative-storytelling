@@ -11,7 +11,7 @@
     position: fixed;
     left: 0;
     bottom: 0;
-    padding: 10px 0 10px 0;
+    padding: 4px 0;
 
     width: 100%;
 

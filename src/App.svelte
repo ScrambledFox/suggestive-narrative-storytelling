@@ -1,5 +1,20 @@
 <script>
+  // import json from "../inkyy.json";
+
+  import Prompt from "./lib/Prompts/Prompt.svelte";
   import Footer from "./lib/Footer.svelte";
+
+  import Story from "inkjs";
+
+  const prompt = {
+    question: "The year is 2050. You look outside your window and see...",
+    answers: [
+      "People wearing gasmasks, standing in line to get more food rations.",
+      "Factories keeping the world together to sustain the consumerist lifestyles.",
+      "A green oasis with children joyfully playing outside.",
+    ],
+    canHaveOpinion: false,
+  };
 
   let participantLoaded = false;
 
@@ -23,8 +38,7 @@
 
 <main>
   {#if participantLoaded}
-    <h1>Nothing to see here yet!</h1>
-    <p>Please come back when there is some content.</p>
+    <Prompt {prompt} />
   {:else}
     <h1>Uh oh.</h1>
     <p>Seems that something went wrong, please try to reload the page.</p>
@@ -43,7 +57,7 @@
   h1 {
     color: #ff3e00;
     text-transform: uppercase;
-    font-size: 4em;
+    font-size: 3em;
     font-weight: 100;
   }
 

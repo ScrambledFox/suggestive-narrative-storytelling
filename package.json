@@ -22,10 +22,13 @@
     "svelte": "^3.0.0",
     "svelte-check": "^2.0.0",
     "svelte-preprocess": "^4.0.0",
+    "svelte-typewriter": "^3.0.4",
     "tslib": "^2.0.0",
     "typescript": "^4.0.0"
   },
   "dependencies": {
-    "sirv-cli": "^2.0.0"
+    "inkjs": "^2.1.0",
+    "sirv-cli": "^2.0.0",
+    "svelte-awesome": "^3.0.0"
   }
 }
