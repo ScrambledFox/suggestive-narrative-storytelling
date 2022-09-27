@@ -16,11 +16,14 @@
 
 <wrapper>
   <Typewriter
-    mode="concurrent"
+    mode="cascade"
     on:done={() => {
       answersVisible = true;
     }}
   >
+    {#if prompt.intro !== ""}
+      <p>{prompt.intro}</p>
+    {/if}
     <Question text={prompt.question} />
   </Typewriter>
 

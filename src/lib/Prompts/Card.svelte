@@ -1,6 +1,11 @@
+<script>
+  export let text;
+  export let index;
+</script>
+
 <card>
   <container>
-    <p>Hello friends.</p>
+    <p>{text}</p>
   </container>
 </card>
 

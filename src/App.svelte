@@ -6,7 +6,8 @@
 
   import Story from "inkjs";
 
-  const prompt = {
+  const prompt1 = {
+    intro: "",
     question: "The year is 2050. You look outside your window and see...",
     answers: [
       "People wearing gasmasks, standing in line to get more food rations.",
@@ -14,6 +15,15 @@
       "A green oasis with children joyfully playing outside.",
     ],
     canHaveOpinion: false,
+  };
+
+  const prompt2 = {
+    intro:
+      "You live in a world depended on local factories. You happen to work at one of these factories, which provides you with just enough income to live. However, your factory is a major pollutant for its environment and people living nearby are not able to grow any crops which is causing them to starve.",
+    question:
+      "You have the option to close the factory out of empathy for the neighboring community that are affected by the pollution. Or you can keep the factory open to keep supporting you own small community of factory workers.",
+    answers: ["Close it.", "Keep it open."],
+    canHaveOpinion: true,
   };
 
   let participantLoaded = false;
@@ -38,7 +48,7 @@
 
 <main>
   {#if participantLoaded}
-    <Prompt {prompt} />
+    <Prompt prompt={prompt1} />
   {:else}
     <h1>Uh oh.</h1>
     <p>Seems that something went wrong, please try to reload the page.</p>
@@ -50,7 +60,7 @@
   main {
     text-align: center;
     padding: 1em;
-    max-width: 240px;
+    max-width: 300px;
     margin: 0 auto;
   }
 

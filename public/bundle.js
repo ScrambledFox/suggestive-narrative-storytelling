@@ -1497,18 +1497,19 @@ var app = (function () {
     	let card;
     	let container;
     	let p;
+    	let t;
 
     	const block = {
     		c: function create() {
     			card = element("card");
     			container = element("container");
     			p = element("p");
-    			p.textContent = "Hello friends.";
-    			add_location(p, file$5, 2, 4, 27);
+    			t = text(/*text*/ ctx[0]);
+    			add_location(p, file$5, 7, 4, 91);
     			attr_dev(container, "class", "svelte-1k3ie93");
-    			add_location(container, file$5, 1, 2, 10);
+    			add_location(container, file$5, 6, 2, 74);
     			attr_dev(card, "class", "svelte-1k3ie93");
-    			add_location(card, file$5, 0, 0, 0);
+    			add_location(card, file$5, 5, 0, 64);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1517,8 +1518,11 @@ var app = (function () {
     			insert_dev(target, card, anchor);
     			append_dev(card, container);
     			append_dev(container, p);
+    			append_dev(p, t);
     		},
-    		p: noop,
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*text*/ 1) set_data_dev(t, /*text*/ ctx[0]);
+    		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
@@ -1537,22 +1541,40 @@ var app = (function () {
     	return block;
     }
 
-    function instance$6($$self, $$props) {
+    function instance$6($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Card', slots, []);
-    	const writable_props = [];
+    	let { text } = $$props;
+    	let { index } = $$props;
+    	const writable_props = ['text', 'index'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Card> was created with unknown prop '${key}'`);
     	});
 
-    	return [];
+    	$$self.$$set = $$props => {
+    		if ('text' in $$props) $$invalidate(0, text = $$props.text);
+    		if ('index' in $$props) $$invalidate(1, index = $$props.index);
+    	};
+
+    	$$self.$capture_state = () => ({ text, index });
+
+    	$$self.$inject_state = $$props => {
+    		if ('text' in $$props) $$invalidate(0, text = $$props.text);
+    		if ('index' in $$props) $$invalidate(1, index = $$props.index);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [text, index];
     }
 
     class Card extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$6, create_fragment$6, safe_not_equal, {});
+    		init(this, options, instance$6, create_fragment$6, safe_not_equal, { text: 0, index: 1 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -1560,6 +1582,33 @@ var app = (function () {
     			options,
     			id: create_fragment$6.name
     		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*text*/ ctx[0] === undefined && !('text' in props)) {
+    			console.warn("<Card> was created without expected prop 'text'");
+    		}
+
+    		if (/*index*/ ctx[1] === undefined && !('index' in props)) {
+    			console.warn("<Card> was created without expected prop 'index'");
+    		}
+    	}
+
+    	get text() {
+    		throw new Error("<Card>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set text(value) {
+    		throw new Error("<Card>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get index() {
+    		throw new Error("<Card>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set index(value) {
+    		throw new Error("<Card>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -1568,7 +1617,14 @@ var app = (function () {
     function create_fragment$5(ctx) {
     	let card;
     	let current;
-    	card = new Card({ $$inline: true });
+
+    	card = new Card({
+    			props: {
+    				text: /*opinion*/ ctx[0],
+    				index: /*index*/ ctx[1]
+    			},
+    			$$inline: true
+    		});
 
     	const block = {
     		c: function create() {
@@ -1581,7 +1637,12 @@ var app = (function () {
     			mount_component(card, target, anchor);
     			current = true;
     		},
-    		p: noop,
+    		p: function update(ctx, [dirty]) {
+    			const card_changes = {};
+    			if (dirty & /*opinion*/ 1) card_changes.text = /*opinion*/ ctx[0];
+    			if (dirty & /*index*/ 2) card_changes.index = /*index*/ ctx[1];
+    			card.$set(card_changes);
+    		},
     		i: function intro(local) {
     			if (current) return;
     			transition_in(card.$$.fragment, local);
@@ -1610,20 +1671,37 @@ var app = (function () {
     function instance$5($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('OpinionCard', slots, []);
-    	const writable_props = [];
+    	let { opinion } = $$props;
+    	let { index } = $$props;
+    	const writable_props = ['opinion', 'index'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<OpinionCard> was created with unknown prop '${key}'`);
     	});
 
-    	$$self.$capture_state = () => ({ Card });
-    	return [];
+    	$$self.$$set = $$props => {
+    		if ('opinion' in $$props) $$invalidate(0, opinion = $$props.opinion);
+    		if ('index' in $$props) $$invalidate(1, index = $$props.index);
+    	};
+
+    	$$self.$capture_state = () => ({ Card, opinion, index });
+
+    	$$self.$inject_state = $$props => {
+    		if ('opinion' in $$props) $$invalidate(0, opinion = $$props.opinion);
+    		if ('index' in $$props) $$invalidate(1, index = $$props.index);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [opinion, index];
     }
 
     class OpinionCard extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$5, create_fragment$5, safe_not_equal, {});
+    		init(this, options, instance$5, create_fragment$5, safe_not_equal, { opinion: 0, index: 1 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -1631,6 +1709,33 @@ var app = (function () {
     			options,
     			id: create_fragment$5.name
     		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*opinion*/ ctx[0] === undefined && !('opinion' in props)) {
+    			console.warn("<OpinionCard> was created without expected prop 'opinion'");
+    		}
+
+    		if (/*index*/ ctx[1] === undefined && !('index' in props)) {
+    			console.warn("<OpinionCard> was created without expected prop 'index'");
+    		}
+    	}
+
+    	get opinion() {
+    		throw new Error("<OpinionCard>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set opinion(value) {
+    		throw new Error("<OpinionCard>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get index() {
+    		throw new Error("<OpinionCard>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set index(value) {
+    		throw new Error("<OpinionCard>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -1640,6 +1745,7 @@ var app = (function () {
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
     	child_ctx[2] = list[i];
+    	child_ctx[4] = i;
     	return child_ctx;
     }
 
@@ -1655,8 +1761,8 @@ var app = (function () {
     			p = element("p");
     			i = element("i");
     			i.textContent = "Select an answer to opinions for that answer.";
-    			add_location(i, file$4, 16, 6, 354);
-    			add_location(p, file$4, 15, 4, 306);
+    			add_location(i, file$4, 16, 6, 369);
+    			add_location(p, file$4, 15, 4, 321);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -1792,13 +1898,16 @@ var app = (function () {
     	return block;
     }
 
-    // (12:4) {#each opinions as opinion}
+    // (12:4) {#each opinions as opinion, index}
     function create_each_block(ctx) {
     	let opinioncard;
     	let current;
 
     	opinioncard = new OpinionCard({
-    			props: { opinion: /*opinion*/ ctx[2] },
+    			props: {
+    				opinion: /*opinion*/ ctx[2],
+    				index: /*index*/ ctx[4]
+    			},
     			$$inline: true
     		});
 
@@ -1833,7 +1942,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(12:4) {#each opinions as opinion}",
+    		source: "(12:4) {#each opinions as opinion, index}",
     		ctx
     	});
 
@@ -2973,10 +3082,47 @@ var app = (function () {
     /* src\lib\Prompts\Prompt.svelte generated by Svelte v3.50.1 */
     const file$2 = "src\\lib\\Prompts\\Prompt.svelte";
 
-    // (18:2) <Typewriter      mode="concurrent"      on:done={() => {        answersVisible = true;      }}    >
+    // (24:4) {#if prompt.intro !== ""}
+    function create_if_block_3(ctx) {
+    	let p;
+    	let t_value = /*prompt*/ ctx[0].intro + "";
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			p = element("p");
+    			t = text(t_value);
+    			add_location(p, file$2, 24, 6, 495);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, p, anchor);
+    			append_dev(p, t);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*prompt*/ 1 && t_value !== (t_value = /*prompt*/ ctx[0].intro + "")) set_data_dev(t, t_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(p);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_3.name,
+    		type: "if",
+    		source: "(24:4) {#if prompt.intro !== \\\"\\\"}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (18:2) <Typewriter      mode="cascade"      on:done={() => {        answersVisible = true;      }}    >
     function create_default_slot(ctx) {
+    	let t;
     	let question;
     	let current;
+    	let if_block = /*prompt*/ ctx[0].intro !== "" && create_if_block_3(ctx);
 
     	question = new Question({
     			props: { text: /*prompt*/ ctx[0].question },
@@ -2985,13 +3131,30 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
+    			if (if_block) if_block.c();
+    			t = space();
     			create_component(question.$$.fragment);
     		},
     		m: function mount(target, anchor) {
+    			if (if_block) if_block.m(target, anchor);
+    			insert_dev(target, t, anchor);
     			mount_component(question, target, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
+    			if (/*prompt*/ ctx[0].intro !== "") {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    				} else {
+    					if_block = create_if_block_3(ctx);
+    					if_block.c();
+    					if_block.m(t.parentNode, t);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+
     			const question_changes = {};
     			if (dirty & /*prompt*/ 1) question_changes.text = /*prompt*/ ctx[0].question;
     			question.$set(question_changes);
@@ -3006,6 +3169,8 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
+    			if (if_block) if_block.d(detaching);
+    			if (detaching) detach_dev(t);
     			destroy_component(question, detaching);
     		}
     	};
@@ -3014,14 +3179,14 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(18:2) <Typewriter      mode=\\\"concurrent\\\"      on:done={() => {        answersVisible = true;      }}    >",
+    		source: "(18:2) <Typewriter      mode=\\\"cascade\\\"      on:done={() => {        answersVisible = true;      }}    >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (27:2) {#if answersVisible}
+    // (30:2) {#if answersVisible}
     function create_if_block_1(ctx) {
     	let answerlist;
     	let updating_selected;
@@ -3115,14 +3280,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(27:2) {#if answersVisible}",
+    		source: "(30:2) {#if answersVisible}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (30:4) {#if prompt.canHaveOpinion}
+    // (33:4) {#if prompt.canHaveOpinion}
     function create_if_block_2(ctx) {
     	let opinioncards;
     	let current;
@@ -3163,14 +3328,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(30:4) {#if prompt.canHaveOpinion}",
+    		source: "(33:4) {#if prompt.canHaveOpinion}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (35:2) {#if selected !== -1}
+    // (38:2) {#if selected !== -1}
     function create_if_block$1(ctx) {
     	let button;
     	let button_transition;
@@ -3181,7 +3346,7 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Choose ▶";
     			attr_dev(button, "class", "svelte-1l02gjt");
-    			add_location(button, file$2, 35, 4, 725);
+    			add_location(button, file$2, 38, 4, 793);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -3212,7 +3377,7 @@ var app = (function () {
     		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(35:2) {#if selected !== -1}",
+    		source: "(38:2) {#if selected !== -1}",
     		ctx
     	});
 
@@ -3228,7 +3393,7 @@ var app = (function () {
 
     	typewriter = new Typewriter({
     			props: {
-    				mode: "concurrent",
+    				mode: "cascade",
     				$$slots: { default: [create_default_slot] },
     				$$scope: { ctx }
     			},
@@ -3551,7 +3716,7 @@ var app = (function () {
     /* src\App.svelte generated by Svelte v3.50.1 */
     const file = "src\\App.svelte";
 
-    // (42:2) {:else}
+    // (52:2) {:else}
     function create_else_block(ctx) {
     	let h1;
     	let t1;
@@ -3564,9 +3729,9 @@ var app = (function () {
     			t1 = space();
     			p = element("p");
     			p.textContent = "Seems that something went wrong, please try to reload the page.";
-    			attr_dev(h1, "class", "svelte-ui13q3");
-    			add_location(h1, file, 42, 4, 1072);
-    			add_location(p, file, 43, 4, 1093);
+    			attr_dev(h1, "class", "svelte-1uz3c48");
+    			add_location(h1, file, 52, 4, 1763);
+    			add_location(p, file, 53, 4, 1784);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h1, anchor);
@@ -3587,43 +3752,43 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(42:2) {:else}",
+    		source: "(52:2) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (40:2) {#if participantLoaded}
+    // (50:2) {#if participantLoaded}
     function create_if_block(ctx) {
-    	let prompt_1;
+    	let prompt;
     	let current;
 
-    	prompt_1 = new Prompt({
-    			props: { prompt: /*prompt*/ ctx[1] },
+    	prompt = new Prompt({
+    			props: { prompt: /*prompt1*/ ctx[1] },
     			$$inline: true
     		});
 
     	const block = {
     		c: function create() {
-    			create_component(prompt_1.$$.fragment);
+    			create_component(prompt.$$.fragment);
     		},
     		m: function mount(target, anchor) {
-    			mount_component(prompt_1, target, anchor);
+    			mount_component(prompt, target, anchor);
     			current = true;
     		},
     		p: noop,
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(prompt_1.$$.fragment, local);
+    			transition_in(prompt.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(prompt_1.$$.fragment, local);
+    			transition_out(prompt.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			destroy_component(prompt_1, detaching);
+    			destroy_component(prompt, detaching);
     		}
     	};
 
@@ -3631,7 +3796,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(40:2) {#if participantLoaded}",
+    		source: "(50:2) {#if participantLoaded}",
     		ctx
     	});
 
@@ -3671,9 +3836,9 @@ var app = (function () {
     			t1 = space();
     			create_component(footer.$$.fragment);
     			if (!src_url_equal(script.src, script_src_value = "https://data.id.tue.nl/api/v1/1335/anonymousParticipation.js")) attr_dev(script, "src", script_src_value);
-    			add_location(script, file, 32, 2, 845);
-    			attr_dev(main, "class", "svelte-ui13q3");
-    			add_location(main, file, 38, 0, 997);
+    			add_location(script, file, 42, 2, 1528);
+    			attr_dev(main, "class", "svelte-1uz3c48");
+    			add_location(main, file, 48, 0, 1680);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3756,7 +3921,8 @@ var app = (function () {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('App', slots, []);
 
-    	const prompt = {
+    	const prompt1 = {
+    		intro: "",
     		question: "The year is 2050. You look outside your window and see...",
     		answers: [
     			"People wearing gasmasks, standing in line to get more food rations.",
@@ -3764,6 +3930,13 @@ var app = (function () {
     			"A green oasis with children joyfully playing outside."
     		],
     		canHaveOpinion: false
+    	};
+
+    	const prompt2 = {
+    		intro: "You live in a world depended on local factories. You happen to work at one of these factories, which provides you with just enough income to live. However, your factory is a major pollutant for its environment and people living nearby are not able to grow any crops which is causing them to starve.",
+    		question: "You have the option to close the factory out of empathy for the neighboring community that are affected by the pollution. Or you can keep the factory open to keep supporting you own small community of factory workers.",
+    		answers: ["Close it.", "Keep it open."],
+    		canHaveOpinion: true
     	};
 
     	let participantLoaded = false;
@@ -3787,7 +3960,8 @@ var app = (function () {
     		Prompt,
     		Footer,
     		Story,
-    		prompt,
+    		prompt1,
+    		prompt2,
     		participantLoaded,
     		initializeParticipation
     	});
@@ -3800,7 +3974,7 @@ var app = (function () {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [participantLoaded, prompt, initializeParticipation];
+    	return [participantLoaded, prompt1, initializeParticipation];
     }
 
     class App extends SvelteComponentDev {

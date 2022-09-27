@@ -1,5 +1,8 @@
 <script>
   import Card from "./Card.svelte";
+
+  export let opinion;
+  export let index;
 </script>
 
-<Card />
+<Card text={opinion} {index} />

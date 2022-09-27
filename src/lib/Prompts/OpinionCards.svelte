@@ -9,8 +9,8 @@
 
 <wrapper>
   {#if selected !== -1}
-    {#each opinions as opinion}
-      <OpinionCard {opinion} />
+    {#each opinions as opinion, index}
+      <OpinionCard {opinion} {index} />
     {/each}
   {:else}
     <p transition:fade={{ duration: 1000 }}>
