@@ -8,7 +8,7 @@
   const dispatch = createEventDispatcher();
 
   const clicked = () => {
-    dispatch("answer:selected", {
+    dispatch("choice:selected", {
       index: index,
       text: text,
     });

@@ -2,21 +2,36 @@
   import Typewriter from "svelte-typewriter";
 
   import { fade } from "svelte/transition";
+  import { createEventDispatcher } from "svelte";
 
-  export let text;
+  const dispatch = createEventDispatcher();
+
+  export let text = "";
+  export let canContinue = false;
+
+  const handleContinue = () => {
+    dispatch("story:continue");
+  };
 </script>
 
-<Typewriter mode="cascade" keepCursorOnFinish={true} on:done={() => {}}>
-  <p>{text}</p>
-</Typewriter>
+{#if text !== null}
+  <Typewriter mode="cascade" keepCursorOnFinish={true} on:done={() => {}}>
+    <p>{text}</p>
+  </Typewriter>
+{/if}
 
-<button transition:fade={{ delay: 0, duration: 1000 }}>Continue ▶</button>
+{#if canContinue}
+  <button
+    transition:fade={{ delay: 0, duration: 1000 }}
+    on:click={handleContinue}>Continue ▶</button
+  >
+{/if}
 
 <style>
   button {
     position: absolute;
     right: 25px;
-    bottom: 40px;
+    bottom: 75px;
 
     cursor: pointer;
   }

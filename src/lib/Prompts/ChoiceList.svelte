@@ -1,23 +1,23 @@
 <script>
-  import Answer from "./Answer.svelte";
+  import Answer from "./Choice.svelte";
 
   import { fade } from "svelte/transition";
 
   export let selected = -1;
-  export let answers;
+  export let choices;
 </script>
 
 <wrapper>
-  {#each answers as text, index}
-    <div transition:fade={{ delay: index * 1250, duration: 1000 }}>
+  {#each choices as choice, index}
+    <div in:fade={{ delay: index * 1250, duration: 1000 }}>
       {#if index > 0}
         <p>-</p>
       {/if}
       <Answer
-        {text}
+        text={choice.text}
         {index}
         selected={selected === index}
-        on:answer:selected={(e) => {
+        on:choice:selected={(e) => {
           selected = e.detail.index;
         }}
       />

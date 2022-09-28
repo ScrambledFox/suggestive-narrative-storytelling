@@ -1,6 +1,6 @@
 <script>
   import Question from "./Question.svelte";
-  import AnswerList from "./AnswerList.svelte";
+  import ChoiceList from "./ChoiceList.svelte";
   import OpinionCards from "./OpinionCards.svelte";
 
   import Typewriter from "svelte-typewriter";
@@ -8,28 +8,39 @@
   import { fade } from "svelte/transition";
   import Intro from "./Intro.svelte";
 
-  export let prompt;
-  export let opinions;
+  import { createEventDispatcher } from "svelte";
 
-  let answersVisible = false;
+  const dispatch = createEventDispatcher();
+
+  export let text;
+  export let choices;
+
+  let showChoices = false;
 
   let selected = -1;
+
+  const handleChosenOption = () => {
+    dispatch("choice:confirmed", {
+      index: selected,
+      choice: choices[selected],
+    });
+  };
 </script>
 
 <wrapper>
   <Typewriter
     mode="concurrent"
     on:done={() => {
-      answersVisible = true;
+      showChoices = true;
     }}
   >
-    <Question text={prompt.question} />
+    <Question {text} />
   </Typewriter>
 
-  {#if answersVisible}
-    <AnswerList answers={prompt.answers} bind:selected />
+  {#if showChoices}
+    <ChoiceList {choices} bind:selected />
 
-    {#if prompt.canHaveOpinion}
+    <!-- {#if prompt.canHaveOpinion}
       <OpinionCards
         opinions={selected >= 0
           ? opinions.filter((o) => {
@@ -37,10 +48,13 @@
             })
           : null}
       />
-    {/if}
+    {/if} -->
 
     {#if selected !== -1}
-      <button transition:fade={{ delay: 0, duration: 1000 }}>Choose ▶</button>
+      <button
+        transition:fade={{ delay: 0, duration: 1000 }}
+        on:click={handleChosenOption}>Choose ▶</button
+      >
     {/if}
   {/if}
 </wrapper>
@@ -53,7 +67,7 @@
   button {
     position: absolute;
     right: 25px;
-    bottom: 40px;
+    bottom: 75px;
 
     cursor: pointer;
   }
