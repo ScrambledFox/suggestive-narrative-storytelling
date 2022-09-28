@@ -3,14 +3,14 @@
   import Intro from "./lib/Prompts/Intro.svelte";
   import Footer from "./lib/Footer.svelte";
 
-  import Ink from "inkjs/dist/ink.js";
+  import Ink from "inkjs";
   import OpinionCards from "./lib/Prompts/OpinionCards.svelte";
 
   import storyJson from "./assets/Story.ink.json.txt";
 
   let currentPrompt = 1;
 
-  let story = new Ink.Story(storyJson);
+  // let Story = new Ink.Story(storyJson);
 
   const prompts = [
     {
@@ -78,16 +78,16 @@
 </svelte:head>
 
 <main>
-  <!-- {#if participantLoaded}
-      <Prompt prompt={prompts[currentPrompt]} opinions={testOpinions} />
-    {:else}
-      <h1>Uh oh.</h1>
-      <p>Seems that something went wrong, please try to reload the page.</p>
-    {/if} -->
+  {#if participantLoaded}
+    <Prompt prompt={prompts[currentPrompt]} opinions={testOpinions} />
+  {:else}
+    <h1>Uh oh.</h1>
+    <p>Seems that something went wrong, please try to reload the page.</p>
+  {/if}
 
-  <Intro
+  <!-- <Intro
     text={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tempor ex in quam molestie, vitae ultricies lectus euismod. Integer ac ex imperdiet, rhoncus augue eu, volutpat lorem. Suspendisse luctus purus eros, vitae volutpat dui accumsan sagittis. Fusce accumsan accumsan accumsan. Phasellus vestibulum mollis turpis sit amet euismod. Duis hendrerit, eros faucibus euismod tincidunt, massa sapien tempus sapien, quis sollicitudin turpis erat non arcu. Nullam ut hendrerit justo. Aenean vitae eros dolor. Donec in magna sit amet sapien aliquet semper id et nibh. Suspendisse elementum sem vitae tincidunt fermentum. Phasellus sit amet elit ipsum. Fusce sit amet mi eget lacus pellentesque dignissim. Vivamus dictum vel enim ac faucibus. Morbi sed aliquet arcu, quis euismod nisl. Vestibulum scelerisque pharetra ligula, a porttitor metus semper et. Sed non eros tincidunt, porttitor enim at, cursus felis. Suspendisse pharetra eget dolor vel maximus. Proin convallis enim non quam egestas, eu facilisis ligula luctus. Mauris dapibus risus sit amet ex congue, sodales porttitor neque tempor. Ut in euismod arcu, vel faucibus tellus. Integer eu justo at leo sagittis dictum. Nullam scelerisque lorem eu arcu tincidunt maximus. Donec at mi dignissim, tempor nisl quis, lobortis metus. Donec elit sem, porttitor ac mauris nec, posuere mollis mi. Curabitur blandit lorem nec malesuada tincidunt. Etiam urna libero, viverra quis elit sit amet, dignissim sagittis nisi. Praesent eu interdum mi. Nam ut velit cursus, tincidunt felis tempus, hendrerit nulla. Nullam consequat purus ut justo condimentum, a cursus magna scelerisque. Nunc congue lacus viverra porta auctor. Aenean condimentum venenatis velit non commodo. Donec non nunc lacinia, sagittis orci ut, suscipit urna. Aenean ex quam, pellentesque sit amet turpis vitae, auctor tincidunt ligula. Etiam cursus, velit in pulvinar vestibulum, lacus velit sodales justo, ac porttitor urna lorem at ipsum. Vivamus massa nibh, elementum ornare neque et, sollicitudin laoreet eros. Sed volutpat ante."}
-  />
+  /> -->
 
   <!-- <OpinionCards opinions={testOpinions} /> -->
   <Footer />
@@ -100,6 +100,8 @@
     padding: 1em;
     max-width: 300px;
     margin: 0 auto;
+
+    --cursor-color: white;
   }
 
   center {

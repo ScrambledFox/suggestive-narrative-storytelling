@@ -17,30 +17,26 @@
 </script>
 
 <wrapper>
-  {#if prompt.intro !== ""}
-    <Intro text={prompt.intro} />
-  {:else}
-    <Typewriter
-      mode="concurrent"
-      on:done={() => {
-        answersVisible = true;
-      }}
-    >
-      <Question text={prompt.question} />
-    </Typewriter>
+  <Typewriter
+    mode="concurrent"
+    on:done={() => {
+      answersVisible = true;
+    }}
+  >
+    <Question text={prompt.question} />
+  </Typewriter>
 
-    {#if answersVisible}
-      <AnswerList answers={prompt.answers} bind:selected />
+  {#if answersVisible}
+    <AnswerList answers={prompt.answers} bind:selected />
 
-      {#if prompt.canHaveOpinion}
-        <OpinionCards
-          opinions={selected >= 0
-            ? opinions.filter((o) => {
-                return o.answer === selected;
-              })
-            : null}
-        />
-      {/if}
+    {#if prompt.canHaveOpinion}
+      <OpinionCards
+        opinions={selected >= 0
+          ? opinions.filter((o) => {
+              return o.answer === selected;
+            })
+          : null}
+      />
     {/if}
 
     {#if selected !== -1}
