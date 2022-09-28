@@ -24,6 +24,10 @@
     transition: 0.5s;
   }
 
+  p:hover {
+    cursor: pointer;
+  }
+
   .selected {
     font-size: 1em;
     color: #a00;

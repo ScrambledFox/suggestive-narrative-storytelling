@@ -2,21 +2,29 @@
   import pkg from "../../package.json";
 </script>
 
-<i>
-  v{pkg.version}
-</i>
+<footer>
+  <p>
+    <version>
+      v{pkg.version}
+    </version>
+  </p>
+</footer>
 
 <style>
-  i {
+  footer {
     position: fixed;
+
     left: 0;
     bottom: 0;
-    padding: 4px 0;
 
     width: 100%;
 
     background-color: #222;
     color: white;
     text-align: center;
+  }
+
+  version {
+    color: #888;
   }
 </style>

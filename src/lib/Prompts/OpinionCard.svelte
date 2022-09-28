@@ -5,4 +5,4 @@
   export let index;
 </script>
 
-<Card text={opinion} {index} />
+<Card text={opinion.text} {index} />

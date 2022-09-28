@@ -3,18 +3,23 @@
 
   import { fade } from "svelte/transition";
 
-  export let selected;
-  export let opinions = [];
+  export let opinions;
 </script>
 
 <wrapper>
-  {#if selected !== -1}
-    {#each opinions as opinion, index}
-      <OpinionCard {opinion} {index} />
-    {/each}
+  {#if opinions === null}
+    <p transition:fade={{ duration: 1000 }}>
+      <i>Select an choice to opinions for that choice.</i>
+    </p>
+  {:else if opinions.length > 0}
+    <scroller>
+      {#each opinions as opinion, index}
+        <OpinionCard {opinion} {index} />
+      {/each}
+    </scroller>
   {:else}
     <p transition:fade={{ duration: 1000 }}>
-      <i>Select an answer to opinions for that answer.</i>
+      <i>No opinions exist yet for this choice.</i>
     </p>
   {/if}
 </wrapper>
@@ -28,5 +33,13 @@
     left: 0;
 
     text-align: center;
+  }
+
+  scroller {
+    margin: auto;
+
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
   }
 </style>

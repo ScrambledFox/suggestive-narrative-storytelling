@@ -7,6 +7,7 @@ import sveltePreprocess from "svelte-preprocess";
 import typescript from "@rollup/plugin-typescript";
 import css from "rollup-plugin-css-only";
 import json from "@rollup/plugin-json";
+import { string } from "rollup-plugin-string";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -67,6 +68,7 @@ export default {
     }),
     commonjs(),
     json(),
+    string({ include: "**/*.txt" }),
     typescript({
       sourceMap: !production,
       inlineSources: !production,
