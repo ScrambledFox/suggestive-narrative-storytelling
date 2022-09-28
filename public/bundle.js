@@ -2402,9 +2402,9 @@ var app = (function () {
     			wrapper = element("wrapper");
     			p = element("p");
     			t = text(/*text*/ ctx[0]);
-    			attr_dev(p, "class", "svelte-1cql8sl");
+    			attr_dev(p, "class", "svelte-oesi05");
     			add_location(p, file$7, 18, 2, 358);
-    			attr_dev(wrapper, "class", "svelte-1cql8sl");
+    			attr_dev(wrapper, "class", "svelte-oesi05");
     			toggle_class(wrapper, "selected", /*selected*/ ctx[1]);
     			add_location(wrapper, file$7, 17, 0, 307);
     		},

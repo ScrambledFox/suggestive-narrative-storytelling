@@ -20,10 +20,6 @@
 </wrapper>
 
 <style>
-  p {
-    transition: 0.5s;
-  }
-
   p:hover {
     cursor: pointer;
   }
