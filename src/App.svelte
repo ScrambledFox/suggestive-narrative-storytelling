@@ -21,7 +21,7 @@
   const getData = async () => {
     let response = await fetch(
       "https://data.id.tue.nl/datasets/downloadPublic/json/" +
-        process.env."U1Q4cEwrWlViem0rWVFndSs4cnM2UT09",
+        "U1Q4cEwrWlViem0rWVFndSs4cnM2UT09",
       {
         method: "GET",
         mode: "cors",
@@ -41,9 +41,10 @@
     js.ajax({
       url: "https://data.id.tue.nl/datasets/entity/2793/item/",
       headers: {
-        api_token: process.env."Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
+        api_token:
+          "Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
         resource_id: id,
-        token: process.env."Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
+        token: "Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
       },
       type: "POST",
       contentType: "application/json",
@@ -80,9 +81,7 @@
       let ids = [];
       let cds = await getData();
       for (let i = 0; i < Story.currentChoices.length; i++) {
-        ids.push(
-          process.env."choice_data_" + (opinionId * 10 + i)
-        );
+        ids.push("choice_data_" + (opinionId * 10 + i));
       }
 
       cds = cds.filter((c) => {
@@ -129,9 +128,7 @@
     console.log("Make choice", currentState, e.detail);
 
     // Update choice rate.
-    let id =
-      process.env."choice_data_" +
-      (currentState.opinionId * 10 + e.detail.index);
+    let id = "choice_data_" + (currentState.opinionId * 10 + e.detail.index);
 
     let cds = await getData();
     let cd = cds.find((c) => c.resource_id === id);
@@ -170,9 +167,10 @@
     js.ajax({
       url: "https://data.id.tue.nl/datasets/entity/2793/item/",
       headers: {
-        api_token: process.env."Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
+        api_token:
+          "Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
         resource_id: ops.resource_id,
-        token: process.env."Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
+        token: "Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
       },
       type: "PUT",
       contentType: "application/json",
@@ -203,9 +201,10 @@
     js.ajax({
       url: "https://data.id.tue.nl/datasets/entity/2793/item/",
       headers: {
-        api_token: process.env."Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
+        api_token:
+          "Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
         resource_id: uuidv4(),
-        token: process.env."Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
+        token: "Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
       },
       type: "POST",
       contentType: "application/json",
