@@ -8,9 +8,8 @@ import typescript from "@rollup/plugin-typescript";
 import css from "rollup-plugin-css-only";
 import json from "@rollup/plugin-json";
 import { string } from "rollup-plugin-string";
-import replace from "@rollup/plugin-replace";
 
-const production = !ROLLUP_WATCH;
+const production = !process.env.ROLLUP_WATCH;
 
 function serve() {
   let server;
