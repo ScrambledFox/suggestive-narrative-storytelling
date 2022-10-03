@@ -10,14 +10,7 @@ import json from "@rollup/plugin-json";
 import { string } from "rollup-plugin-string";
 import replace from "@rollup/plugin-replace";
 
-import { config } from "dotenv";
-
 const production = !process.env.ROLLUP_WATCH;
-
-const configToReplace = {};
-for (const [key, v] of Object.entries(config().parsed)) {
-  configToReplace[`process.env.${key}`] = `'${v}'`;
-}
 
 function serve() {
   let server;
@@ -82,12 +75,12 @@ export default {
       inlineSources: !production,
     }),
 
-    // To help with environment variables.
-    replace({
-      include: ["src/**/*.ts", "src/**/*.svelte"],
-      preventAssignment: true,
-      values: configToReplace,
-    }),
+    // // To help with environment variables.
+    // replace({
+    //   include: ["src/**/*.ts", "src/**/*.svelte"],
+    //   preventAssignment: true,
+    //   values: configToReplace,
+    // }),
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated

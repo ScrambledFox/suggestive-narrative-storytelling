@@ -21,7 +21,7 @@
   const getData = async () => {
     let response = await fetch(
       "https://data.id.tue.nl/datasets/downloadPublic/json/" +
-        process.env.DF_DATA_JSON_TOKEN,
+        process.env."U1Q4cEwrWlViem0rWVFndSs4cnM2UT09",
       {
         method: "GET",
         mode: "cors",
@@ -41,9 +41,9 @@
     js.ajax({
       url: "https://data.id.tue.nl/datasets/entity/2793/item/",
       headers: {
-        api_token: process.env.DF_DATA_TOKEN,
+        api_token: process.env."Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
         resource_id: id,
-        token: process.env.DF_DATA_TOKEN,
+        token: process.env."Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
       },
       type: "POST",
       contentType: "application/json",
@@ -81,7 +81,7 @@
       let cds = await getData();
       for (let i = 0; i < Story.currentChoices.length; i++) {
         ids.push(
-          process.env.CHOICES_CHOSEN_RESOURCE_ID_PREFIX + (opinionId * 10 + i)
+          process.env."choice_data_" + (opinionId * 10 + i)
         );
       }
 
@@ -130,7 +130,7 @@
 
     // Update choice rate.
     let id =
-      process.env.CHOICES_CHOSEN_RESOURCE_ID_PREFIX +
+      process.env."choice_data_" +
       (currentState.opinionId * 10 + e.detail.index);
 
     let cds = await getData();
@@ -170,9 +170,9 @@
     js.ajax({
       url: "https://data.id.tue.nl/datasets/entity/2793/item/",
       headers: {
-        api_token: process.env.DF_DATA_TOKEN,
+        api_token: process.env."Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
         resource_id: ops.resource_id,
-        token: process.env.DF_DATA_TOKEN,
+        token: process.env."Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
       },
       type: "PUT",
       contentType: "application/json",
@@ -203,9 +203,9 @@
     js.ajax({
       url: "https://data.id.tue.nl/datasets/entity/2793/item/",
       headers: {
-        api_token: process.env.DF_DATA_TOKEN,
+        api_token: process.env."Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
         resource_id: uuidv4(),
-        token: process.env.DF_DATA_TOKEN,
+        token: process.env."Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
       },
       type: "POST",
       contentType: "application/json",
