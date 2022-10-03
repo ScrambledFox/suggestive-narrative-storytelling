@@ -18,21 +18,23 @@
 
 <wrapper>
   {#if state !== null}
-    {#if state.choices !== null && state.choices.length > 0}
+    {#if state.choices !== undefined && state.choices.length > 0}
       <Prompt
         text={state.prompt}
         choices={state.choices}
+        choiceData={state.choiceData}
+        totalChosen={state.totalChosen}
+        canHaveOpinion={state.opinionId > 0}
+        opinions={state.opinions}
         on:choice:confirmed={(e) => sendChoice(e)}
       />
     {:else}
       <Intro
         text={state.prompt}
-        canContinue={state !== null && state.choices.length === 0}
+        canContinue={state.choices !== undefined && state.choices.length === 0}
         on:story:continue={() => dispatch("story:continue")}
       />
     {/if}
-  {:else}
-    <Intro text="The end." />
   {/if}
 </wrapper>
 

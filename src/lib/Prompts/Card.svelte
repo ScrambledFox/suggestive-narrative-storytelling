@@ -1,17 +1,25 @@
 <script>
   export let text = "";
-  export let button = "";
-  export let index = -1;
+  export let agreed = 0;
+  export let showAgreeButton = false;
 </script>
 
 <container>
   <card>
-    <h3>Opinion #{index + 1}</h3>
+    <h5>
+      {#if agreed === 0}
+        No One Agrees
+      {:else if agreed === 1}
+        {agreed} Person Agrees
+      {:else}
+        {agreed} People Agree
+      {/if}
+    </h5>
     <hr />
     <p>{text}</p>
 
-    {#if button !== ""}
-      <button>Agree</button>
+    {#if showAgreeButton}
+      <button on:click>Agree</button>
     {/if}
   </card>
 </container>

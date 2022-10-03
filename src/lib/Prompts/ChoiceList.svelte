@@ -5,6 +5,17 @@
 
   export let selected = -1;
   export let choices;
+  export let choiceData;
+  export let totalChosen;
+
+  const getChosenPercentage = (index) => {
+    let choice = choiceData.find((c) => c.index === index);
+    if (choice === undefined) return 0;
+    if (totalChosen === 0) return 0;
+    return ((choice.chosen * 100) / totalChosen).toFixed(0);
+  };
+
+  console.log(choiceData, totalChosen);
 </script>
 
 <wrapper>
@@ -14,9 +25,9 @@
         <p>-</p>
       {/if}
       <Answer
-        text={choice.text}
+        text={choice.text + ` (${getChosenPercentage(index)}%)`}
         {index}
-        selected={selected === index}
+        isSelected={selected === index}
         on:choice:selected={(e) => {
           selected = e.detail.index;
         }}

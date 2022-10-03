@@ -1,5 +1,4 @@
 <script>
-  import Question from "./Question.svelte";
   import ChoiceList from "./ChoiceList.svelte";
   import OpinionCards from "./OpinionCards.svelte";
 
@@ -14,17 +13,15 @@
 
   export let text;
   export let choices;
+  export let choiceData;
+  export let totalChosen;
+
+  export let opinions = [];
+  export let canHaveOpinion;
 
   let showChoices = false;
 
   let selected = -1;
-
-  const handleChosenOption = () => {
-    dispatch("choice:confirmed", {
-      index: selected,
-      choice: choices[selected],
-    });
-  };
 </script>
 
 <wrapper>
@@ -34,26 +31,29 @@
       showChoices = true;
     }}
   >
-    <Question {text} />
+    <h3>{text}</h3>
   </Typewriter>
 
   {#if showChoices}
-    <ChoiceList {choices} bind:selected />
+    <ChoiceList {choices} {choiceData} {totalChosen} bind:selected />
 
-    <!-- {#if prompt.canHaveOpinion}
+    {#if canHaveOpinion}
       <OpinionCards
         opinions={selected >= 0
           ? opinions.filter((o) => {
-              return o.answer === selected;
+              return o.choiceId === selected;
             })
-          : null}
+          : []}
       />
-    {/if} -->
+    {/if}
 
     {#if selected !== -1}
       <button
-        transition:fade={{ delay: 0, duration: 1000 }}
-        on:click={handleChosenOption}>Choose ▶</button
+        in:fade={{ delay: 0, duration: 1000 }}
+        on:click={dispatch("choice:confirmed", {
+          index: selected,
+          choice: choices[selected],
+        })}>Choose ▶</button
       >
     {/if}
   {/if}
@@ -67,7 +67,7 @@
   button {
     position: absolute;
     right: 25px;
-    bottom: 75px;
+    bottom: 25px;
 
     cursor: pointer;
   }

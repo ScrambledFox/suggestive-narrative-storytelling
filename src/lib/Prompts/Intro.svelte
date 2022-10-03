@@ -21,9 +21,8 @@
 {/if}
 
 {#if canContinue}
-  <button
-    transition:fade={{ delay: 0, duration: 1000 }}
-    on:click={handleContinue}>Continue ▶</button
+  <button in:fade={{ delay: 0, duration: 1000 }} on:click={handleContinue}
+    >Continue ▶</button
   >
 {/if}
 
@@ -31,7 +30,7 @@
   button {
     position: absolute;
     right: 25px;
-    bottom: 75px;
+    bottom: 25px;
 
     cursor: pointer;
   }

@@ -1,8 +1,24 @@
 <script>
+  import { createEventDispatcher } from "svelte/internal";
   import Card from "./Card.svelte";
 
+  const dispatch = createEventDispatcher();
+
   export let opinion;
-  export let index;
+  export let agreed;
+  export let showAgreeButton;
+
+  const handleClick = () => {
+    console.log("OPI", opinion);
+    dispatch("opinion:agreed", {
+      opinion: opinion,
+    });
+  };
 </script>
 
-<Card text={opinion.text} {index} />
+<Card
+  text={opinion.opinion}
+  {agreed}
+  {showAgreeButton}
+  on:click={() => handleClick()}
+/>

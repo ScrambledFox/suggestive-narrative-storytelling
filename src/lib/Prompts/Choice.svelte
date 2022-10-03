@@ -1,7 +1,7 @@
 <script>
   export let text;
   export let index;
-  export let selected;
+  export let isSelected;
 
   import { createEventDispatcher } from "svelte";
 
@@ -15,7 +15,7 @@
   };
 </script>
 
-<wrapper class:selected on:mousedown={clicked}>
+<wrapper class:isSelected on:mousedown={clicked}>
   <p>{text}</p>
 </wrapper>
 
@@ -24,7 +24,7 @@
     cursor: pointer;
   }
 
-  .selected {
+  .isSelected {
     font-size: 1em;
     color: #a00;
   }
