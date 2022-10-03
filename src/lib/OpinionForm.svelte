@@ -37,7 +37,6 @@
     {opinions}
     showAgreeButton={true}
     on:opinion:agreed={(e) => {
-      console.log(e);
       dispatch("opinion:agreed", {
         opinion: e.detail.opinion,
         choiceText: choiceText,

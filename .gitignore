@@ -1,6 +1,10 @@
 /node_modules/
 /public/build/
 
+bundle.js
+bundle.js.map
+bundle.css
+
 .DS_Store
 
 
