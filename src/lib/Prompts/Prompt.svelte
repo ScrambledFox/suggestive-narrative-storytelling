@@ -27,6 +27,7 @@
 <wrapper>
   <Typewriter
     mode="concurrent"
+    interval = 20
     on:done={() => {
       showChoices = true;
     }}

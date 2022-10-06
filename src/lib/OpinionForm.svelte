@@ -17,9 +17,9 @@
 
 <wrap>
   <p>You chose: {choiceText}</p>
-  <Typewriter>
+  <Typewriter interval = 20>
     <h3>Why did you choose this?</h3>
-    <p>Others will see this, so try to be convincing!</p>
+    <p>Other people will see this, so try to be convincing!</p>
   </Typewriter>
 
   <textarea bind:value={writtenOpinion} type="text" maxlength={500} />

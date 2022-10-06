@@ -80,7 +80,7 @@
     margin: 0px;
     padding: 0px 0px 15px 0px;
     font-family: "Noto Sans KR", sans-serif;
-    font-size: 30px;
+    font-size: 20px;
     color: #ddd;
   }
 

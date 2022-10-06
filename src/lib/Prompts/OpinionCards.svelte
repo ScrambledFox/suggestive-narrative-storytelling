@@ -11,10 +11,17 @@
 </script>
 
 <wrapper>
+  <p in:fade={{ duration: 1000 }}>
+    <i>Select a choice to see opinions for that choice.</i>
+  </p>
   {#if opinions === null}
+    <!--
+    Dit werkte niet, het werd niet weergegeven als je nog geen selectie had gemaakt
+
     <p in:fade={{ duration: 1000 }}>
-      <i>Select an choice to see opinions for that choice.</i>
+      <i>Select a choice to see opinions for that choice.</i>
     </p>
+    -->
   {:else if opinions.length === 0}
     <p in:fade={{ duration: 1000 }}>
       <i>No opinions exist yet for this choice.</i>

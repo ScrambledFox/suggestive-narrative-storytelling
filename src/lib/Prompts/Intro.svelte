@@ -15,7 +15,7 @@
 </script>
 
 {#if text !== null}
-  <Typewriter mode="cascade" keepCursorOnFinish={true} on:done={() => {}}>
+  <Typewriter mode="cascade" interval=20 keepCursorOnFinish={true} on:done={() => {}}>
     <p>{text}</p>
   </Typewriter>
 {/if}
