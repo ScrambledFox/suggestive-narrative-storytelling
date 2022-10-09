@@ -18,7 +18,7 @@
   const getData = async () => {
     let response = await fetch(
       "https://data.id.tue.nl/datasets/downloadPublic/json/" +
-        "U1Q4cEwrWlViem0rWVFndSs4cnM2UT09",
+        "MVV0bVZjTEFHVUpLc1VIeHdFUU11VUhkMitEY25GV3FBM3VkaEZ5Rm9uaz0=",
       {
         method: "GET",
         mode: "cors",
@@ -37,12 +37,12 @@
   // Sets a DF DB record with the id and rewrites its data to data.
   const setResourceWithResourceId = (id, data) => {
     js.ajax({
-      url: "https://data.id.tue.nl/datasets/entity/2793/item/",
+      url: "https://data.id.tue.nl/datasets/entity/2816/item/",
       headers: {
         api_token:
-          "Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
+          "TXIyY1B2cWI3SU41MHlTMUwxMDNMQ2psTFRpS2QxcHl0LzNpVlMwbjY5MD0=",
         resource_id: id,
-        token: "Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
+        token: "TXIyY1B2cWI3SU41MHlTMUwxMDNMQ2psTFRpS2QxcHl0LzNpVlMwbjY5MD0=",
       },
       type: "POST",
       contentType: "application/json",
@@ -182,12 +182,12 @@
 
     // Update
     js.ajax({
-      url: "https://data.id.tue.nl/datasets/entity/2793/item/",
+      url: "https://data.id.tue.nl/datasets/entity/2816/item/",
       headers: {
         api_token:
-          "Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
+          "TXIyY1B2cWI3SU41MHlTMUwxMDNMQ2psTFRpS2QxcHl0LzNpVlMwbjY5MD0=",
         resource_id: ops.resource_id,
-        token: "Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
+        token: "TXIyY1B2cWI3SU41MHlTMUwxMDNMQ2psTFRpS2QxcHl0LzNpVlMwbjY5MD0=",
       },
       type: "PUT",
       contentType: "application/json",
@@ -228,12 +228,12 @@
     };
 
     js.ajax({
-      url: "https://data.id.tue.nl/datasets/entity/2793/item/",
+      url: "https://data.id.tue.nl/datasets/entity/2816/item/",
       headers: {
         api_token:
-          "Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
+          "TXIyY1B2cWI3SU41MHlTMUwxMDNMQ2psTFRpS2QxcHl0LzNpVlMwbjY5MD0=",
         resource_id: uuidv4(),
-        token: "Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=",
+        token: "TXIyY1B2cWI3SU41MHlTMUwxMDNMQ2psTFRpS2QxcHl0LzNpVlMwbjY5MD0=",
       },
       type: "POST",
       contentType: "application/json",
