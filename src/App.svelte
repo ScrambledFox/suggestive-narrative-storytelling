@@ -1,23 +1,20 @@
 <script>
   import StoryState from "./StoryState.svelte";
-  import Prompt from "./lib/Prompts/Prompt.svelte";
   import Intro from "./lib/Prompts/Intro.svelte";
-  import OpinionCards from "./lib/Prompts/OpinionCards.svelte";
   import OpinionForm from "./lib/OpinionForm.svelte";
-  import Footer from "./lib/Footer.svelte";
 
   import Ink from "inkjs";
   import storyJson from "./assets/test.json";
   import { v4 as uuidv4 } from "uuid";
 
-  import { onMount } from "svelte";
-  import { detach } from "svelte/internal";
-  import Choice from "./lib/Prompts/Choice.svelte";
-
   import * as js from "jquery";
+  import Form from "./lib/Form.svelte";
 
   let Story = new Ink.Story(storyJson);
 
+  const PARTICIPANT_ID = uuidv4();
+
+  // Fetches all data from DF.
   const getData = async () => {
     let response = await fetch(
       "https://data.id.tue.nl/datasets/downloadPublic/json/" +
@@ -37,6 +34,7 @@
     return await response.json();
   };
 
+  // Sets a DF DB record with the id and rewrites its data to data.
   const setResourceWithResourceId = (id, data) => {
     js.ajax({
       url: "https://data.id.tue.nl/datasets/entity/2793/item/",
@@ -59,6 +57,7 @@
     });
   };
 
+  // Gets opinions for a prompt.
   const getOpinionsWithPromptId = async (id) => {
     let json = await getData();
     return json.filter((o) => {
@@ -66,6 +65,7 @@
     });
   };
 
+  // Cycles to next story state.
   const getNextStoryState = async () => {
     if (Story.canContinue) {
       let nextLine = Story.Continue();
@@ -113,6 +113,7 @@
         totalChosen: total,
         opinions: await getOpinionsWithPromptId(opinionId),
         opinionId: opinionId,
+        participantId: PARTICIPANT_ID,
       };
 
       console.log(data);
@@ -122,7 +123,9 @@
     return null;
   };
 
+  // Makes a choice
   const makeChoice = async (e) => {
+    let choices = Story.currentChoices;
     Story.ChooseChoiceIndex(e.detail.index);
 
     console.log("Make choice", currentState, e.detail);
@@ -142,6 +145,19 @@
       setResourceWithResourceId(id, { chosen: 1 });
     }
 
+    // Save seperate record.
+    let choiceRecordData = {
+      participantId: PARTICIPANT_ID,
+      promptOpinionId: currentState.opinionId,
+      madeChoiceId: e.detail.index,
+      prompt: currentState.prompt,
+      choice: choices[e.detail.index].text,
+    };
+    setResourceWithResourceId(
+      "choice_made_record_" + Math.floor(Math.random() * 1000000) + 1,
+      choiceRecordData
+    );
+
     currentState.lastMadeChoice = e.detail.choice;
     currentState.lastMadeChoiceIndex = e.detail.index;
 
@@ -152,6 +168,7 @@
     }
   };
 
+  // Agrees with an opinion.
   const agreeWithOpinion = async (e) => {
     // Get opinions
     let ops = await getData();
@@ -183,10 +200,21 @@
       },
     });
 
+    // Save seperate record.
+    let agree_data = {
+      participantId: PARTICIPANT_ID,
+      agreedWithOpinionId: ops.resource_id,
+    };
+    setResourceWithResourceId(
+      "agreed_record_" + Math.floor(Math.random() * 1000000) + 1,
+      agree_data
+    );
+
     // Continue
     LoadNextState();
   };
 
+  // Saves a new opinion.
   const saveNewOpinion = (e) => {
     if (e.detail.opinion == "") return;
 
@@ -196,6 +224,7 @@
       choice: currentState.prompt,
       choiceId: currentState.lastMadeChoiceIndex,
       agreedTimes: 0,
+      writtenByParticipant: PARTICIPANT_ID,
     };
 
     js.ajax({
@@ -249,7 +278,8 @@
       />
     {/if}
   {:else}
-    <Intro text="The end." />
+    <!-- <Intro text="The end." /> -->
+    <Form />
   {/if}
 </main>
 

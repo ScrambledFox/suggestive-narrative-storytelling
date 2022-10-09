@@ -27,7 +27,7 @@
 <wrapper>
   <Typewriter
     mode="concurrent"
-    interval = 20
+    interval="20"
     on:done={() => {
       showChoices = true;
     }}
@@ -44,7 +44,7 @@
           ? opinions.filter((o) => {
               return o.choiceId === selected;
             })
-          : []}
+          : null}
       />
     {/if}
 
