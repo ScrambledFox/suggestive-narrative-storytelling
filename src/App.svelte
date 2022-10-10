@@ -12,13 +12,21 @@
 
   let Story = new Ink.Story(storyJson);
 
+  const ENABLE_SUGGESTIVE = false;
+  const ENABLE_CHOICE_PERCENTAGES = false;
+
   const PARTICIPANT_ID = uuidv4();
+
+  const API_TOKEN =
+    "Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=";
+  const JSON_DOWNLOAD_TOKEN = "U1Q4cEwrWlViem0rWVFndSs4cnM2UT09";
+  const PROJECT_ID = 2793;
 
   // Fetches all data from DF.
   const getData = async () => {
     let response = await fetch(
       "https://data.id.tue.nl/datasets/downloadPublic/json/" +
-        "MVV0bVZjTEFHVUpLc1VIeHdFUU11VUhkMitEY25GV3FBM3VkaEZ5Rm9uaz0=",
+        JSON_DOWNLOAD_TOKEN,
       {
         method: "GET",
         mode: "cors",
@@ -37,12 +45,11 @@
   // Sets a DF DB record with the id and rewrites its data to data.
   const setResourceWithResourceId = (id, data) => {
     js.ajax({
-      url: "https://data.id.tue.nl/datasets/entity/2816/item/",
+      url: "https://data.id.tue.nl/datasets/entity/" + PROJECT_ID + "/item/",
       headers: {
-        api_token:
-          "TXIyY1B2cWI3SU41MHlTMUwxMDNMQ2psTFRpS2QxcHl0LzNpVlMwbjY5MD0=",
+        api_token: API_TOKEN,
         resource_id: id,
-        token: "TXIyY1B2cWI3SU41MHlTMUwxMDNMQ2psTFRpS2QxcHl0LzNpVlMwbjY5MD0=",
+        token: API_TOKEN,
       },
       type: "POST",
       contentType: "application/json",
@@ -161,7 +168,7 @@
     currentState.lastMadeChoice = e.detail.choice;
     currentState.lastMadeChoiceIndex = e.detail.index;
 
-    if (currentState.opinionId == 0) {
+    if (!ENABLE_SUGGESTIVE || currentState.opinionId === 0) {
       LoadNextState();
     } else {
       currentState.askOpinion = true;
@@ -182,12 +189,11 @@
 
     // Update
     js.ajax({
-      url: "https://data.id.tue.nl/datasets/entity/2816/item/",
+      url: "https://data.id.tue.nl/datasets/entity/" + PROJECT_ID + "/item/",
       headers: {
-        api_token:
-          "TXIyY1B2cWI3SU41MHlTMUwxMDNMQ2psTFRpS2QxcHl0LzNpVlMwbjY5MD0=",
+        api_token: API_TOKEN,
         resource_id: ops.resource_id,
-        token: "TXIyY1B2cWI3SU41MHlTMUwxMDNMQ2psTFRpS2QxcHl0LzNpVlMwbjY5MD0=",
+        token: API_TOKEN,
       },
       type: "PUT",
       contentType: "application/json",
@@ -228,12 +234,11 @@
     };
 
     js.ajax({
-      url: "https://data.id.tue.nl/datasets/entity/2816/item/",
+      url: "https://data.id.tue.nl/datasets/entity/" + PROJECT_ID + "/item/",
       headers: {
-        api_token:
-          "TXIyY1B2cWI3SU41MHlTMUwxMDNMQ2psTFRpS2QxcHl0LzNpVlMwbjY5MD0=",
+        api_token: API_TOKEN,
         resource_id: uuidv4(),
-        token: "TXIyY1B2cWI3SU41MHlTMUwxMDNMQ2psTFRpS2QxcHl0LzNpVlMwbjY5MD0=",
+        token: API_TOKEN,
       },
       type: "POST",
       contentType: "application/json",
@@ -273,6 +278,8 @@
     {:else}
       <StoryState
         state={currentState}
+        suggestiveEnabled={ENABLE_SUGGESTIVE}
+        showChoicePercentages={ENABLE_CHOICE_PERCENTAGES}
         on:choice:confirmed={(e) => makeChoice(e)}
         on:story:continue={LoadNextState}
       />

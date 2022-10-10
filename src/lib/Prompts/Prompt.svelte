@@ -19,6 +19,8 @@
   export let opinions = [];
   export let canHaveOpinion;
 
+  export let showChoicePercentages = false;
+
   let showChoices = false;
 
   let selected = -1;
@@ -36,7 +38,13 @@
   </Typewriter>
 
   {#if showChoices}
-    <ChoiceList {choices} {choiceData} {totalChosen} bind:selected />
+    <ChoiceList
+      {choices}
+      {choiceData}
+      {totalChosen}
+      {showChoicePercentages}
+      bind:selected
+    />
 
     {#if canHaveOpinion}
       <OpinionCards

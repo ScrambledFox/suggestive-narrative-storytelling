@@ -7,6 +7,8 @@
   const dispatch = createEventDispatcher();
 
   export let state = null;
+  export let suggestiveEnabled = false;
+  export let showChoicePercentages = false;
 
   const sendChoice = (e) => {
     dispatch("choice:confirmed", {
@@ -24,8 +26,9 @@
         choices={state.choices}
         choiceData={state.choiceData}
         totalChosen={state.totalChosen}
-        canHaveOpinion={state.opinionId > 0}
+        canHaveOpinion={state.opinionId > 0 && suggestiveEnabled}
         opinions={state.opinions}
+        {showChoicePercentages}
         on:choice:confirmed={(e) => sendChoice(e)}
       />
     {:else}

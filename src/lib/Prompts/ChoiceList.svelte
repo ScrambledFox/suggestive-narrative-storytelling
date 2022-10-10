@@ -7,6 +7,7 @@
   export let choices;
   export let choiceData;
   export let totalChosen;
+  export let showChoicePercentages = false;
 
   const getChosenPercentage = (index) => {
     let choice = choiceData.find((c) => c.index === index);
@@ -25,7 +26,8 @@
         <p>-</p>
       {/if}
       <Answer
-        text={choice.text + ` (${getChosenPercentage(index)}%)`}
+        text={choice.text +
+          (showChoicePercentages ? ` (${getChosenPercentage(index)}%)` : "")}
         {index}
         isSelected={selected === index}
         on:choice:selected={(e) => {
