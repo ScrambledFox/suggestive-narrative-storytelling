@@ -266,6 +266,8 @@
     currentState = await getNextStoryState();
   };
 
+  let hadIntro = false;
+
   // Get first line.
   LoadNextState();
 </script>
@@ -273,7 +275,22 @@
 <main>
   {#if accessAllowed}
     {#if currentState !== null}
-      {#if currentState.askOpinion}
+      {#if !hadIntro}
+        <Intro
+          on:story:continue={() => {
+            hadIntro = true;
+          }}
+          text={[
+            'This is a "choose your own adventure" game. Your decisions and choices will influence the ending you will get.',
+            "You’ll start this game by choosing a perspective on a world. Each perspective offers an interesting look on the future. After that, each choice will determine the outcome of your unique story.",
+            "You have the perspective of someone who leads a community in that world you chose. You will face several ethical problems or difficult decisions. Choose the option that you feel is right or you feel the most comfortable with.",
+            "During this game, you have the option to share your own opinion on different choices.",
+            enableSuggestiveComponent
+              ? "You will be able to see the opinions of others on the subject and future players will be able to see your opinion on the matter."
+              : "",
+          ]}
+        />
+      {:else if currentState.askOpinion}
         <OpinionForm
           choiceText={currentState.lastMadeChoice.text}
           choiceIndex={currentState.lastMadeChoiceIndex}

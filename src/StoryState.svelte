@@ -33,7 +33,7 @@
       />
     {:else}
       <Intro
-        text={state.prompt}
+        text={[state.prompt]}
         canContinue={state.choices !== undefined && state.choices.length === 0}
         on:story:continue={() => dispatch("story:continue")}
       />
