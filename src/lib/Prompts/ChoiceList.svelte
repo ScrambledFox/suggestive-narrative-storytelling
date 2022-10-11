@@ -11,12 +11,18 @@
 
   const getChosenPercentage = (index) => {
     let choice = choiceData.find((c) => c.index === index);
-    if (choice === undefined) return 0;
-    if (totalChosen === 0) return 0;
-    return ((choice.chosen * 100) / totalChosen).toFixed(0);
+    if (choice === undefined)
+      return `(0% of ${totalChosen} ${
+        totalChosen === 1 ? "person" : "people"
+      })`;
+    if (totalChosen === 0)
+      return `(0% of ${totalChosen} ${
+        totalChosen === 1 ? "person" : "people"
+      })`;
+    return `(${((choice.chosen * 100) / totalChosen).toFixed(
+      0
+    )}% of ${totalChosen} ${totalChosen === 1 ? "person" : "people"})`;
   };
-
-  console.log(choiceData, totalChosen);
 </script>
 
 <wrapper>
@@ -27,7 +33,7 @@
       {/if}
       <Answer
         text={choice.text +
-          (showChoicePercentages ? ` (${getChosenPercentage(index)}%)` : "")}
+          (showChoicePercentages ? " " + getChosenPercentage(index) : "")}
         {index}
         isSelected={selected === index}
         on:choice:selected={(e) => {

@@ -12,16 +12,30 @@
 
   let Story = new Ink.Story(storyJson);
 
-  const ENABLE_SUGGESTIVE = false;
-  const ENABLE_CHOICE_PERCENTAGES = false;
-
-  const PARTICIPANT_ID = uuidv4();
-
   const POST_API_TOKEN =
     "ZzlWcTMxbDN5MkJyT3ZjclI3ai9lQnNock8ySTlBUkUxNk5YUUdxTjNlaz0=";
   const JSON_DOWNLOAD_TOKEN =
     "UWljcUJpVjNDMWc4NTl6dndJOGxLcjljaG81WldkMW1sd1lwbTNRNmY0dz0=";
   const DB_ID = 2821;
+
+  const urlParams = new URLSearchParams(window.location.search);
+
+  // First check if people accessed this site in the correct way. (Or using the dev tag)
+  let accessAllowed = false;
+  const timestamp = urlParams.get("token");
+  if (new Date().getTime() < timestamp || urlParams.has("dev")) {
+    accessAllowed = true;
+  }
+
+  // Get participant id
+  let participantId = "not_registered_" + uuidv4();
+  if (urlParams.has("id")) {
+    participantId = urlParams.get("id");
+  }
+
+  // Check for suggestive narrative
+  let enableSuggestiveComponent = urlParams.has("sgstv");
+  let showChoicePercentages = urlParams.has("sgstv");
 
   // Fetches all data from DF.
   const getData = async () => {
@@ -56,7 +70,6 @@
       contentType: "application/json",
       data: JSON.stringify(data),
       success: function (data) {
-        console.log("CHOICE DATA UPDATED", data);
         return data;
       },
       error: function (e) {
@@ -77,7 +90,6 @@
   const getNextStoryState = async () => {
     if (Story.canContinue) {
       let nextLine = Story.Continue();
-      console.log(Story);
 
       let opinionId = 0;
       let tag = Story.currentTags.find((tag) => tag.includes("choice_id"));
@@ -121,10 +133,9 @@
         totalChosen: total,
         opinions: await getOpinionsWithPromptId(opinionId),
         opinionId: opinionId,
-        participantId: PARTICIPANT_ID,
+        participantId: participantId,
       };
 
-      console.log(data);
       return data;
     }
 
@@ -136,40 +147,41 @@
     let choices = Story.currentChoices;
     Story.ChooseChoiceIndex(e.detail.index);
 
-    console.log("Make choice", currentState, e.detail);
-
-    // Update choice rate.
+    // Update choice data.
     let id = "choice_data_" + (currentState.opinionId * 10 + e.detail.index);
 
     let cds = await getData();
     let cd = cds.find((c) => c.resource_id === id);
 
-    console.log("CD", cd);
-
     if (cd !== undefined) {
       cd.chosen++;
       setResourceWithResourceId(id, cd);
     } else {
-      setResourceWithResourceId(id, { chosen: 1 });
+      let choiceData = {
+        type: "staticChoiceData",
+        chosen: 1,
+      };
+      setResourceWithResourceId(id, choiceData);
     }
 
     // Save seperate record.
     let choiceRecordData = {
-      participantId: PARTICIPANT_ID,
+      type: "choiceMade",
+      participantId: participantId,
       promptOpinionId: currentState.opinionId,
       madeChoiceId: e.detail.index,
       prompt: currentState.prompt,
       choice: choices[e.detail.index].text,
     };
     setResourceWithResourceId(
-      "choice_made_record_" + Math.floor(Math.random() * 1000000) + 1,
+      "choice_made_record_" + uuidv4(),
       choiceRecordData
     );
 
     currentState.lastMadeChoice = e.detail.choice;
     currentState.lastMadeChoiceIndex = e.detail.index;
 
-    if (!ENABLE_SUGGESTIVE || currentState.opinionId === 0) {
+    if (currentState.opinionId === 0) {
       LoadNextState();
     } else {
       currentState.askOpinion = true;
@@ -183,7 +195,6 @@
 
     // Select
     ops = ops.find((o) => o.resource_id === e.detail.opinion.resource_id);
-    console.log("OPS", ops);
 
     // Adapt
     ops.agreedTimes++;
@@ -199,9 +210,7 @@
       type: "PUT",
       contentType: "application/json",
       data: JSON.stringify(ops),
-      success: function (data) {
-        console.log("UPDATED", data);
-      },
+      success: function (data) {},
       error: function (e) {
         console.log(e);
       },
@@ -209,13 +218,11 @@
 
     // Save seperate record.
     let agree_data = {
-      participantId: PARTICIPANT_ID,
+      type: "agreedWith",
+      participantId: participantId,
       agreedWithOpinionId: ops.resource_id,
     };
-    setResourceWithResourceId(
-      "agreed_record_" + Math.floor(Math.random() * 1000000) + 1,
-      agree_data
-    );
+    setResourceWithResourceId("agreed_record_" + uuidv4(), agree_data);
 
     // Continue
     LoadNextState();
@@ -226,27 +233,26 @@
     if (e.detail.opinion == "") return;
 
     let data = {
+      type: "opinionGiven",
       opinion: e.detail.opinion,
       opinionId: currentState.opinionId,
       choice: currentState.prompt,
       choiceId: currentState.lastMadeChoiceIndex,
       agreedTimes: 0,
-      writtenByParticipant: PARTICIPANT_ID,
+      writtenByParticipant: participantId,
     };
 
     js.ajax({
       url: "https://data.id.tue.nl/datasets/entity/" + DB_ID + "/item/",
       headers: {
         api_token: POST_API_TOKEN,
-        resource_id: uuidv4(),
+        resource_id: "opinion_" + uuidv4(),
         token: POST_API_TOKEN,
       },
       type: "POST",
       contentType: "application/json",
       data: JSON.stringify(data),
-      success: function (data) {
-        console.log(data);
-      },
+      success: function (data) {},
       error: function (e) {
         console.error(e);
       },
@@ -265,29 +271,41 @@
 </script>
 
 <main>
-  {#if currentState !== null}
-    {#if currentState.askOpinion}
-      <OpinionForm
-        choiceText={currentState.lastMadeChoice.text}
-        choiceIndex={currentState.lastMadeChoiceIndex}
-        opinions={currentState.opinions.filter((o) => {
-          return o.choiceId === currentState.lastMadeChoiceIndex;
-        })}
-        on:opinion:submitted={(e) => saveNewOpinion(e)}
-        on:opinion:agreed={(e) => agreeWithOpinion(e)}
-      />
+  {#if accessAllowed}
+    {#if currentState !== null}
+      {#if currentState.askOpinion}
+        <OpinionForm
+          choiceText={currentState.lastMadeChoice.text}
+          choiceIndex={currentState.lastMadeChoiceIndex}
+          opinions={currentState.opinions.filter((o) => {
+            return o.choiceId === currentState.lastMadeChoiceIndex;
+          })}
+          on:opinion:submitted={(e) => saveNewOpinion(e)}
+          on:opinion:agreed={(e) => agreeWithOpinion(e)}
+        />
+      {:else}
+        <StoryState
+          state={currentState}
+          suggestiveEnabled={enableSuggestiveComponent}
+          {showChoicePercentages}
+          on:choice:confirmed={(e) => makeChoice(e)}
+          on:story:continue={LoadNextState}
+        />
+      {/if}
     {:else}
-      <StoryState
-        state={currentState}
-        suggestiveEnabled={ENABLE_SUGGESTIVE}
-        showChoicePercentages={ENABLE_CHOICE_PERCENTAGES}
-        on:choice:confirmed={(e) => makeChoice(e)}
-        on:story:continue={LoadNextState}
-      />
+      <!-- <Intro text="The end." /> -->
+      <Form {participantId} />
     {/if}
   {:else}
-    <!-- <Intro text="The end." /> -->
-    <Form />
+    <h1>Uh oh!</h1>
+    <p>
+      It seems that you've accessed this website in a dissallowed way, or you
+      might have reloaded the page.
+    </p>
+    <p>
+      Please relaunch the study via the Data Foundry Dashboard which you can
+      find in your e-mail!
+    </p>
   {/if}
 </main>
 

@@ -17,7 +17,7 @@
 
 <wrap>
   <p>You chose: {choiceText}</p>
-  <Typewriter interval = 20>
+  <Typewriter interval="20">
     <h3>Why did you choose this?</h3>
     <p>Other people will see this, so try to be convincing!</p>
   </Typewriter>
@@ -28,7 +28,7 @@
       choice: choiceText,
       opinion: writtenOpinion,
     })}
-    transition:fade={{ delay: 0, duration: 1000 }}>Submit</button
+    in:fade={{ delay: 0, duration: 1000 }}>Submit</button
   >
 
   <p>Or agree with another opinion!</p>
@@ -55,7 +55,6 @@
 
   button {
     position: relative;
-
     cursor: pointer;
   }
 </style>

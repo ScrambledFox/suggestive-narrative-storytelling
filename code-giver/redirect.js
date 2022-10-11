@@ -1,8 +1,20 @@
 let startTime = new Date().getTime();
 let redirecttime = 5000;
 let redirect = setTimeout(() => {
-  window.location.replace("http://storytelling.jorislodewijks.nl");
+  let url = "http://storytelling.jorislodewijks.nl";
+  // let url = "http://localhost:8080/";
+  url += "?token=" + (parseInt(new Date().getTime()) + 10 * 1000);
+  url += "&id=" + DF.participant.id;
+
+  ///////////////////////////////////////////////////////
+  // TO SWITCH TO TEST GROUP INSTEAD OF CONTROL GROUP.
+  url += "&sgstv";
+  ///////////////////////////////////////////////////////
+
+  window.location.replace(url);
 }, redirecttime);
+
+console.log(DF.participant.getProfile());
 
 let second = setInterval(() => {
   document.getElementById("second").innerHTML =

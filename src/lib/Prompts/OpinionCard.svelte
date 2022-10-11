@@ -9,7 +9,6 @@
   export let showAgreeButton;
 
   const handleClick = () => {
-    console.log("OPI", opinion);
     dispatch("opinion:agreed", {
       opinion: opinion,
     });
