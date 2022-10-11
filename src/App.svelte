@@ -17,10 +17,11 @@
 
   const PARTICIPANT_ID = uuidv4();
 
-  const API_TOKEN =
-    "Q292bk9FMStweWlzMTM0ZXZILzBqcHpMV2ZzSlJNKzdleW52NThKbTJtTT0=";
-  const JSON_DOWNLOAD_TOKEN = "U1Q4cEwrWlViem0rWVFndSs4cnM2UT09";
-  const PROJECT_ID = 2793;
+  const POST_API_TOKEN =
+    "ZzlWcTMxbDN5MkJyT3ZjclI3ai9lQnNock8ySTlBUkUxNk5YUUdxTjNlaz0=";
+  const JSON_DOWNLOAD_TOKEN =
+    "UWljcUJpVjNDMWc4NTl6dndJOGxLcjljaG81WldkMW1sd1lwbTNRNmY0dz0=";
+  const DB_ID = 2821;
 
   // Fetches all data from DF.
   const getData = async () => {
@@ -45,11 +46,11 @@
   // Sets a DF DB record with the id and rewrites its data to data.
   const setResourceWithResourceId = (id, data) => {
     js.ajax({
-      url: "https://data.id.tue.nl/datasets/entity/" + PROJECT_ID + "/item/",
+      url: "https://data.id.tue.nl/datasets/entity/" + DB_ID + "/item/",
       headers: {
-        api_token: API_TOKEN,
+        api_token: POST_API_TOKEN,
         resource_id: id,
-        token: API_TOKEN,
+        token: POST_API_TOKEN,
       },
       type: "POST",
       contentType: "application/json",
@@ -189,11 +190,11 @@
 
     // Update
     js.ajax({
-      url: "https://data.id.tue.nl/datasets/entity/" + PROJECT_ID + "/item/",
+      url: "https://data.id.tue.nl/datasets/entity/" + DB_ID + "/item/",
       headers: {
-        api_token: API_TOKEN,
+        api_token: POST_API_TOKEN,
         resource_id: ops.resource_id,
-        token: API_TOKEN,
+        token: POST_API_TOKEN,
       },
       type: "PUT",
       contentType: "application/json",
@@ -234,11 +235,11 @@
     };
 
     js.ajax({
-      url: "https://data.id.tue.nl/datasets/entity/" + PROJECT_ID + "/item/",
+      url: "https://data.id.tue.nl/datasets/entity/" + DB_ID + "/item/",
       headers: {
-        api_token: API_TOKEN,
+        api_token: POST_API_TOKEN,
         resource_id: uuidv4(),
-        token: API_TOKEN,
+        token: POST_API_TOKEN,
       },
       type: "POST",
       contentType: "application/json",
