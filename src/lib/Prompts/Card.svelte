@@ -8,12 +8,19 @@
   <card>
     <h5>
       {#if agreed === 0}
+        One person agrees
+      {:else}
+        {agreed + 1} People Agree
+      {/if}
+      <!-- OLD CODE
+      {#if agreed === 0}
         No One Agrees
       {:else if agreed === 1}
         {agreed} Person Agrees
       {:else}
         {agreed} People Agree
       {/if}
+      -->
     </h5>
     <hr />
     <p>{text}</p>
