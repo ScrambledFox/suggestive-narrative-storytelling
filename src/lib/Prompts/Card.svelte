@@ -8,7 +8,7 @@
   <card>
     <h5>
       {#if agreed === 0}
-        One person agrees
+        One Person Agrees
       {:else}
         {agreed + 1} People Agree
       {/if}
