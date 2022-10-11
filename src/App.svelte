@@ -334,6 +334,7 @@
     margin: 0 auto;
 
     --cursor-color: white;
+    line-height: 150%;
   }
 
   center {
@@ -357,4 +358,5 @@
       max-width: none;
     }
   }
+  
 </style>
