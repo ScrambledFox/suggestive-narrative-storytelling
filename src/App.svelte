@@ -239,7 +239,7 @@
       choice: currentState.prompt,
       choiceId: currentState.lastMadeChoiceIndex,
       agreedTimes: 0,
-      writtenByParticipant: participantId,
+      participantId: participantId,
     };
 
     js.ajax({
@@ -358,5 +358,4 @@
       max-width: none;
     }
   }
-  
 </style>
