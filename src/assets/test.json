@@ -2,7 +2,7 @@
     "inkVersion": 20,
     "root": [
         [
-            "^The year is 2050. You look outside your window and see...",
+            "^You are now in the year 2050. You look outside your window and see...",
             "\n",
             [
                 "ev",
@@ -476,7 +476,7 @@
                     {
                         "#": "choice_id=3"
                     },
-                    "^You have the option to close the factory out of empathy for the neighboring community that are affected by the pollution. Or you can keep the factory open to keep supporting you own small community of factory workers.",
+                    "^You have the option to close the factory out of empathy for the neighboring community that is affected by the pollution. Or you can keep the factory open to keep supporting you own small community of factory workers.",
                     "\n",
                     [
                         [
@@ -800,7 +800,7 @@
                     {
                         "#": "choice_id=5"
                     },
-                    "^The factory is now gone. Now the world has less pollution and you might by able to create a new form of food and income for your community. However you now must provide for a lot more people who were depended on the factory. They are angry at you and demand an explanation and reasoning as to why you destroyed their lives.",
+                    "^The factory is now gone. You might by able to create a new form of food and income for your community. However, you must provide for a lot more people who were depended on the factory. They are angry at you and demand an explanation and reasoning as to why you destroyed their factory.",
                     "\n",
                     [
                         "ev",
@@ -932,7 +932,7 @@
                     {
                         "#": "choice_id=6"
                     },
-                    "^You keep the factory open. You are still able to barely support your own community. But the land of your neighbors next to you is completely destroyed and they have nothing left. You know some of the people there and you get messages with the question of why you didn't close the factory.",
+                    "^You keep the factory open. You are still able to barely support your own community. But the land of your neighbours next to you is completely destroyed and they have nothing left. Your neighbours wonder why you didn't close the factory.",
                     "\n",
                     [
                         "ev",
@@ -1064,7 +1064,7 @@
                     {
                         "#": "choice_id=7"
                     },
-                    "^Things are going well in the factory and you have been promoted to the executive board. There is a new budget and you get to decide how it should be spend. You have the option of helping out your neighbors by investing in soil fertility reparation, or you can upgrade the factory which would increase the production that could sustain the food needs of the whole community, but it could potentially harm the environment even more.",
+                    "^Things are going well in the factory and you have been promoted. There is a new budget and you get to decide how it should be spend. You have the option of helping out your neighbors by investing in soil fertility reparation, or you can upgrade the factory which would increase the production. The latter could mean that enough food could be produced for the whole community, but it could potentially harm the environment even more.",
                     "\n",
                     [
                         "ev",
@@ -1195,7 +1195,7 @@
                 {
                     "#": "choice_id=8"
                 },
-                "^Over the upcoming days you try to come up with new food sources. You can stay with your community to try and improve your life there by slowly trying to rebuild food and production, with a possible chance of failure. Or you can move to the big city and try to rebuild your life there with your community, while its still possible. This requires everyone to abandon there lives.",
+                "^Over the upcoming days you try to come up with new food sources. You can stay with your community to try and improve your life there by slowly trying to rebuild food and production, with a possible chance of failure. Or you can move to the big city and try to rebuild your life there with your community, while its still possible. This requires everyone to abandon their lives.",
                 "\n",
                 [
                     [
@@ -1471,7 +1471,7 @@
                     {
                         "#": "choice_id=10"
                     },
-                    "^You invest in the factory of the neighboring community. They are grateful for your help, Your own community is dissatisfied with your choice. You are wealthy but still have lots of other problems that require investing. They demand to know why you refuse to fix your own community's problems first.",
+                    "^You invest in the factory of the neighbouring community. They are grateful for your help but your own community is dissatisfied. You are wealthy but still have lots of other problems that require investing. They demand to know why you refuse to fix your own community's problems first.",
                     "\n",
                     [
                         "ev",
@@ -1532,7 +1532,7 @@
                         },
                         {
                             "s": [
-                                "^\"We have to show good will to other from time to time. In the future we will focus more on ourselves again.\"",
+                                "^\"We have to show good will to others from time to time. In the future we will focus more on ourselves again.\"",
                                 {
                                     "->": "$r",
                                     "var": true
@@ -1745,7 +1745,7 @@
                     },
                     {
                         "b": [
-                            "^As you plead your case to the city head, you mention all the efforts that you made for your community to try and improve the living conditions. The city head argues that you should have made other decisions. If they decide to take more people like you in, the city will also slowly deteriorate. You should have made better choices for your own community. The big city isn't able to take in anymore refugees. You have to go somewhere else.",
+                            "^As you plead your case to the city head, you mention all the efforts that you made for your community to try and improve the living conditions. The city head argues that you should have made other decisions. If they decide to take more people like you in, the city will also slowly deteriorate. The big city isn't able to take in anymore refugees. You have to go somewhere else.",
                             {
                                 "->": "flee.6"
                             },
@@ -1797,7 +1797,7 @@
                     },
                     {
                         "b": [
-                            "^ Now that you were able to rebuild some parts of your food resources, things are going well. The problem of the factory pollution seems to be solved. Now you argue with the big city to reform their industry as well to be less polluting, which would make it possible to create better living conditions and to allow even more communities to be raised out of poverty. The city's head argues that taking a risk like this could have disastrous consequences for the community. He states that in your case, taking the risk of shutting down the factory could only have been beneficial because you had nothing to lose anyways. Its a different story for the big city though.",
+                            "^ Now that you were able to rebuild some parts of your food resources, things are going well. Now you argue with the big city to reform their industry as well to be less polluting, which would make it possible to create better living conditions and to allow even more communities to be raised out of poverty. The city's head argues that taking a risk like this could have disastrous consequences for the community. He states that in your case, taking the risk of shutting down the factory could only have been beneficial because you had nothing to lose anyways. Its a different story for the big city.",
                             {
                                 "->": ".^.^.^.6"
                             },
@@ -1835,7 +1835,7 @@
                 }
             ],
             "upgrade": [
-                "^You invest again in the community. You see the effect your actions have on a lower community. It did however cost some of your own progress. But the world is a bit easier to live in for them. You decide to meet with the other community leaders to discuss your actions.",
+                "^You invest again in the community. You see the effect your actions have on the lower community. It did however cost some of your own progress. But the world is a bit easier to live in for them. You decide to meet with the other community leaders to discuss your actions.",
                 "\n",
                 "ev",
                 {
@@ -1871,7 +1871,7 @@
                     },
                     {
                         "b": [
-                            "^ After continuously investing in lower communities, your own living conditions in the big city have slowly decreased. Your own people are not really satisfied anymore as they had to sacrifice their own lifestyles. The lower communities have been able to improve their living conditions. However they have become really dependent on you and you must keep investing in them. While the living conditions in your own city deteriorate.",
+                            "^ After continuously investing in lower communities, your own living conditions in the big city have slowly decreased. Your own people are not really satisfied anymore as they had to sacrifice their own lifestyles. The lower communities have been able to improve their living conditions. However, they have become really dependent on you and you must keep investing in them. While the living conditions in your own city deteriorate.",
                             {
                                 "->": ".^.^.^.12"
                             },
@@ -1901,7 +1901,7 @@
                     },
                     {
                         "b": [
-                            "^ Your irregular investments had detrimental consequences for the other communities. By first making them depend on you and then pulling your funds, chaos emerged. Immigrants are now lining up at the gates, demanding answers and entrance. You know that you can't let these people in, because it would disrupt the city. You are going to have to tell these people to find some other place, yet you know that there are no alternatives for them.",
+                            "^ Your irregular investments had detrimental consequences for the other communities. By first making them depent on you and then pulling your funds, chaos emerged. Immigrants are now lining up at the gates, demanding answers and entrance. You know that you can't let these people in, because it would disrupt the city. You are going to have to tell these people to find some other place, yet you know that there are no alternatives for them.",
                             {
                                 "->": ".^.^.^.6"
                             },
@@ -1923,7 +1923,7 @@
                     },
                     {
                         "b": [
-                            "^ Due to your own progress, you have made yourself very attractive to refugees. They all come knocking at your city walls. They demand that it's time to give back to the other communities as you have plenty of resources to spare. You now have to deal with the faith of even more people, and how you open up your community to distribute the wealth.",
+                            "^ Due to your own progress, you have made your community very attractive to refugees. These immigrants are knocking at your city walls. They demand that it's time to give back to the other communities as you have plenty of resources to spare. You now have to deal with the faith of even more people, and how you open up your community to distribute the wealth.",
                             {
                                 "->": ".^.^.^.12"
                             },
