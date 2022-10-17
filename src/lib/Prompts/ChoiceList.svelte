@@ -19,9 +19,9 @@
       return `(0% of ${totalChosen} ${
         totalChosen === 1 ? "person" : "people"
       })`;
-    return `(${((choice.chosen * 100) / totalChosen).toFixed(
-      0
-    )}% of ${totalChosen} ${totalChosen === 1 ? "person" : "people"})`;
+    return `(${((choice.chosen * 100) / totalChosen).toFixed(0)}% (${
+      choice.chosen
+    }) of ${totalChosen} ${totalChosen === 1 ? "person" : "people"})`;
   };
 </script>
 

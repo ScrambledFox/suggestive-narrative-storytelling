@@ -59,23 +59,23 @@
 
   // Sets a DF DB record with the id and rewrites its data to data.
   const setResourceWithResourceId = (id, data) => {
-    js.ajax({
-      url: "https://data.id.tue.nl/datasets/entity/" + DB_ID + "/item/",
-      headers: {
-        api_token: POST_API_TOKEN,
-        resource_id: id,
-        token: POST_API_TOKEN,
-      },
-      type: "POST",
-      contentType: "application/json",
-      data: JSON.stringify(data),
-      success: function (data) {
-        return data;
-      },
-      error: function (e) {
-        console.error(e);
-      },
-    });
+    // js.ajax({
+    //   url: "https://data.id.tue.nl/datasets/entity/" + DB_ID + "/item/",
+    //   headers: {
+    //     api_token: POST_API_TOKEN,
+    //     resource_id: id,
+    //     token: POST_API_TOKEN,
+    //   },
+    //   type: "POST",
+    //   contentType: "application/json",
+    //   data: JSON.stringify(data),
+    //   success: function (data) {
+    //     return data;
+    //   },
+    //   error: function (e) {
+    //     console.error(e);
+    //   },
+    // });
   };
 
   // Gets opinions for a prompt.
@@ -200,21 +200,21 @@
     ops.agreedTimes++;
 
     // Update
-    js.ajax({
-      url: "https://data.id.tue.nl/datasets/entity/" + DB_ID + "/item/",
-      headers: {
-        api_token: POST_API_TOKEN,
-        resource_id: ops.resource_id,
-        token: POST_API_TOKEN,
-      },
-      type: "PUT",
-      contentType: "application/json",
-      data: JSON.stringify(ops),
-      success: function (data) {},
-      error: function (e) {
-        console.log(e);
-      },
-    });
+    // js.ajax({
+    //   url: "https://data.id.tue.nl/datasets/entity/" + DB_ID + "/item/",
+    //   headers: {
+    //     api_token: POST_API_TOKEN,
+    //     resource_id: ops.resource_id,
+    //     token: POST_API_TOKEN,
+    //   },
+    //   type: "PUT",
+    //   contentType: "application/json",
+    //   data: JSON.stringify(ops),
+    //   success: function (data) {},
+    //   error: function (e) {
+    //     console.log(e);
+    //   },
+    // });
 
     // Save seperate record.
     let agree_data = {
@@ -242,21 +242,21 @@
       participantId: participantId,
     };
 
-    js.ajax({
-      url: "https://data.id.tue.nl/datasets/entity/" + DB_ID + "/item/",
-      headers: {
-        api_token: POST_API_TOKEN,
-        resource_id: "opinion_" + uuidv4(),
-        token: POST_API_TOKEN,
-      },
-      type: "POST",
-      contentType: "application/json",
-      data: JSON.stringify(data),
-      success: function (data) {},
-      error: function (e) {
-        console.error(e);
-      },
-    });
+    // js.ajax({
+    //   url: "https://data.id.tue.nl/datasets/entity/" + DB_ID + "/item/",
+    //   headers: {
+    //     api_token: POST_API_TOKEN,
+    //     resource_id: "opinion_" + uuidv4(),
+    //     token: POST_API_TOKEN,
+    //   },
+    //   type: "POST",
+    //   contentType: "application/json",
+    //   data: JSON.stringify(data),
+    //   success: function (data) {},
+    //   error: function (e) {
+    //     console.error(e);
+    //   },
+    // });
 
     LoadNextState();
   };
@@ -266,7 +266,7 @@
     currentState = await getNextStoryState();
   };
 
-  let hadIntro = false;
+  let hadIntro = true;
 
   // Get first line.
   LoadNextState();
@@ -276,7 +276,7 @@
   {#if accessAllowed}
     {#if currentState !== null}
       {#if !hadIntro}
-        <Intro
+        <!-- <Intro
           on:story:continue={() => {
             hadIntro = true;
           }}
@@ -289,7 +289,7 @@
               ? "You will be able to see the opinions of others on the subject and future players will be able to see your opinion on the matter."
               : "",
           ]}
-        />
+        /> -->
       {:else if currentState.askOpinion}
         <OpinionForm
           choiceText={currentState.lastMadeChoice.text}
