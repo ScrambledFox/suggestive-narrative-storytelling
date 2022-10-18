@@ -17,7 +17,7 @@ const gotoStudy = () => {
 
   ///////////////////////////////////////////////////////
   // TO SWITCH TO TEST GROUP INSTEAD OF CONTROL GROUP.
-  // url += "&sgstv";
+  url += "&sgstv";
   ///////////////////////////////////////////////////////
 
   window.location.replace(url);
